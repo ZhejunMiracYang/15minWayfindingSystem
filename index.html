@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=390, initial-scale=1.0">
+  <title>15min Wayfinding Kiosk</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="kiosk">
+
+  <!-- ════════════════════════════════════════════
+       SCREEN: Onboarding
+       ════════════════════════════════════════════ -->
+  <div class="screen active" id="onboardingScreen">
+    <div class="main">
+
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <div class="temperature">
+          <span>26</span>
+          <span>℃</span>
+        </div>
+        <span class="top-bar-title">15min Wayfinding</span>
+        <div class="weather">
+          <span class="weather-text">Sunny</span>
+          <img class="weather-icon" src="assets/sun-icon.png" alt="Sunny">
+        </div>
+      </div>
+
+      <!-- Location -->
+      <div class="location-section">
+        <p class="location-label">Your Current location</p>
+        <p class="location-name">J-Wing Entrance</p>
+      </div>
+
+      <!-- Connection Card -->
+      <div class="connection-card">
+        <div class="card-inner">
+          <div class="globe-circle">
+            <img class="globe-icon" src="assets/icon-globe.svg" alt="">
+          </div>
+          <div class="card-text-group">
+            <div class="card-heading">
+              Ready to navigate?<br>Use the 15min Wayfinding System!
+            </div>
+            <p class="card-subtitle">Select the language you prefer.</p>
+          </div>
+          <div class="language-selector" id="languageSelector">
+            <span class="language-text" id="selectedLanguage">English</span>
+            <img class="chevron-icon" src="assets/icon-chevron.svg" alt="">
+            <div class="language-dropdown" id="languageDropdown">
+              <div class="language-option selected" data-value="en">English</div>
+              <div class="language-option" data-value="fr">Français</div>
+              <div class="language-option" data-value="zh">中文</div>
+              <div class="language-option" data-value="es">Español</div>
+              <div class="language-option" data-value="ko">한국어</div>
+            </div>
+          </div>
+          <div class="quick-actions">
+            <button class="quick-action-btn" aria-label="Washroom">
+              <img src="assets/washroom.png" alt="">
+              <span>Washroom</span>
+            </button>
+            <button class="quick-action-btn" aria-label="Medical">
+              <img src="assets/medical.png" alt="">
+              <span>Medical</span>
+            </button>
+            <button class="quick-action-btn" aria-label="Police">
+              <img src="assets/police.png" alt="">
+              <span>Police</span>
+            </button>
+            <button class="quick-action-btn" aria-label="ATM">
+              <img src="assets/atm.png" alt="">
+              <span>ATM</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Back Button -->
+    <div class="back-btn-wrapper">
+      <button class="back-btn" aria-label="Go back">
+        <img class="btn-icon" src="assets/icon-back.svg" alt="">
+        <span>Back</span>
+      </button>
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-btn" aria-label="Search" data-navigate="categoriesScreen" data-category="food">
+        <img class="nav-icon" src="assets/icon-search.svg" alt="">
+        <span>Search</span>
+      </button>
+      <button class="nav-btn nav-btn--home" aria-label="Home" data-navigate="homeScreen">
+        <img class="nav-icon" src="assets/icon-home.svg" alt="">
+        <span>Home</span>
+      </button>
+      <button class="nav-btn" aria-label="Map" data-navigate="mapScreen">
+        <img class="nav-icon" src="assets/icon-map.svg" alt="">
+        <span>Map</span>
+      </button>
+      <button class="nav-btn-support" aria-label="Support" data-navigate="supportScreen">
+        <img class="nav-icon" src="assets/icon-alert.svg" alt="">
+        <span>Support</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       SCREEN: Home
+       ════════════════════════════════════════════ -->
+  <div class="screen" id="homeScreen">
+    <div class="main main--scrollable">
+
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <div class="temperature">
+          <span>26</span>
+          <span>℃</span>
+        </div>
+        <span class="top-bar-title">15min Wayfinding</span>
+        <div class="weather">
+          <span class="weather-text">Sunny</span>
+          <img class="weather-icon" src="assets/sun-icon.png" alt="Sunny">
+        </div>
+      </div>
+
+      <!-- Location -->
+      <div class="location-section">
+        <p class="location-label">Your Current location</p>
+        <p class="location-name">J-Wing Entrance</p>
+      </div>
+
+      <!-- Search + Quick Actions Card -->
+      <div class="home-card">
+        <div class="card-inner">
+          <!-- Search Bar -->
+          <div class="search-bar" role="search">
+            <span class="search-bar-text">Search</span>
+            <img class="search-bar-icon" src="assets/icon-search-dark.svg" alt="">
+          </div>
+          <!-- Quick Actions -->
+          <div class="quick-actions">
+            <button class="quick-action-btn" aria-label="Washroom">
+              <img src="assets/washroom.png" alt="">
+              <span>Washroom</span>
+            </button>
+            <button class="quick-action-btn" aria-label="Medical">
+              <img src="assets/medical.png" alt="">
+              <span>Medical</span>
+            </button>
+            <button class="quick-action-btn" aria-label="Police">
+              <img src="assets/police.png" alt="">
+              <span>Police</span>
+            </button>
+            <button class="quick-action-btn" aria-label="ATM">
+              <img src="assets/atm.png" alt="">
+              <span>ATM</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Section (clickable → opens Map Screen) -->
+      <section class="home-section">
+        <h2 class="section-title">Map</h2>
+        <div class="map-container" data-navigate="mapScreen" role="button" tabindex="0" aria-label="Open full map">
+          <img class="map-image" src="assets/map-sheridan.png" alt="Map showing Sheridan College Trafalgar Campus area">
+        </div>
+      </section>
+
+      <!-- Categories Section -->
+      <section class="home-section">
+        <h2 class="section-title">Categories</h2>
+        <div class="category-actions">
+          <button class="quick-action-btn" aria-label="Food" data-navigate="categoriesScreen" data-category="food">
+            <img src="assets/food.png" alt="">
+            <span>Food</span>
+          </button>
+          <button class="quick-action-btn" aria-label="Transit" data-navigate="categoriesScreen" data-category="transit">
+            <img src="assets/transit.png" alt="">
+            <span>Transit</span>
+          </button>
+          <button class="quick-action-btn" aria-label="Event" data-navigate="categoriesScreen" data-category="event">
+            <img src="assets/event.png" alt="">
+            <span>Event</span>
+          </button>
+          <button class="quick-action-btn" aria-label="Attraction" data-navigate="categoriesScreen" data-category="attraction">
+            <img src="assets/attraction.png" alt="">
+            <span>Attraction</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Transit Timetable Preview (populated by JS) -->
+      <section class="home-section">
+        <h2 class="section-title">Transit Timetable</h2>
+        <div class="transit-list" id="homeTransitPreview"></div>
+        <button class="transit-view-all" data-navigate="transitScreen">View all departures</button>
+      </section>
+
+    </div>
+
+    <!-- Back Button -->
+    <div class="back-btn-wrapper">
+      <button class="back-btn" aria-label="Go back" data-navigate="onboardingScreen">
+        <img class="btn-icon" src="assets/icon-back.svg" alt="">
+        <span>Back</span>
+      </button>
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-btn" aria-label="Search" data-navigate="categoriesScreen" data-category="food">
+        <img class="nav-icon" src="assets/icon-search.svg" alt="">
+        <span>Search</span>
+      </button>
+      <button class="nav-btn nav-btn--active" aria-label="Home">
+        <img class="nav-icon" src="assets/icon-home.svg" alt="">
+        <span>Home</span>
+      </button>
+      <button class="nav-btn" aria-label="Map" data-navigate="mapScreen">
+        <img class="nav-icon" src="assets/icon-map.svg" alt="">
+        <span>Map</span>
+      </button>
+      <button class="nav-btn-support" aria-label="Support" data-navigate="supportScreen">
+        <img class="nav-icon" src="assets/icon-alert.svg" alt="">
+        <span>Support</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       SCREEN: Categories
+       ════════════════════════════════════════════ -->
+  <div class="screen" id="categoriesScreen">
+    <div class="main main--scrollable">
+
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <div class="temperature">
+          <span>26</span>
+          <span>℃</span>
+        </div>
+        <span class="top-bar-title">15min Wayfinding</span>
+        <div class="weather">
+          <span class="weather-text">Sunny</span>
+          <img class="weather-icon" src="assets/sun-icon.png" alt="Sunny">
+        </div>
+      </div>
+
+      <!-- Category Tabs -->
+      <section class="cat-section">
+        <h2 class="section-title">Categories</h2>
+        <div class="cat-tabs" id="catTabs">
+          <button class="cat-tab cat-tab--active" data-cat="food" aria-label="Food">
+            <img src="assets/food.png" alt="">
+            <span>Food</span>
+          </button>
+          <button class="cat-tab" data-cat="transit" aria-label="Transit">
+            <img src="assets/transit.png" alt="">
+            <span>Transit</span>
+          </button>
+          <button class="cat-tab" data-cat="event" aria-label="Event">
+            <img src="assets/event.png" alt="">
+            <span>Event</span>
+          </button>
+          <button class="cat-tab" data-cat="attraction" aria-label="Attraction">
+            <img src="assets/attraction.png" alt="">
+            <span>Attraction</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Search Bar -->
+      <div class="search-bar search-bar--bordered" role="search">
+        <span class="search-bar-text">Search</span>
+        <img class="search-bar-icon" src="assets/icon-search-dark.svg" alt="">
+      </div>
+
+      <!-- Category Cards List (populated by JS) -->
+      <div class="cat-cards-list" id="catCardsList"></div>
+
+    </div>
+
+    <!-- Back Button -->
+    <div class="back-btn-wrapper">
+      <button class="back-btn" aria-label="Go back" id="catBackBtn">
+        <img class="btn-icon" src="assets/icon-back.svg" alt="">
+        <span>Back</span>
+      </button>
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-btn" aria-label="Search" data-navigate="categoriesScreen" data-category="food">
+        <img class="nav-icon" src="assets/icon-search.svg" alt="">
+        <span>Search</span>
+      </button>
+      <button class="nav-btn" aria-label="Home" data-navigate="homeScreen">
+        <img class="nav-icon" src="assets/icon-home.svg" alt="">
+        <span>Home</span>
+      </button>
+      <button class="nav-btn" aria-label="Map" data-navigate="mapScreen">
+        <img class="nav-icon" src="assets/icon-map.svg" alt="">
+        <span>Map</span>
+      </button>
+      <button class="nav-btn-support" aria-label="Support" data-navigate="supportScreen">
+        <img class="nav-icon" src="assets/icon-alert.svg" alt="">
+        <span>Support</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       SCREEN: Map
+       ════════════════════════════════════════════ -->
+  <div class="screen" id="mapScreen">
+    <div class="map-screen-layout">
+
+      <!-- Map Image (full bleed, offset to center campus) -->
+      <div class="map-full">
+        <img class="map-full-image" src="assets/map-sheridan.png" alt="Sheridan College Trafalgar Campus area map">
+      </div>
+
+      <!-- 15-min Walking Radius Circle -->
+      <div class="map-radius-circle">
+        <img src="assets/radius-circle.png" alt="">
+      </div>
+
+      <!-- Top Bar (floating over map) -->
+      <div class="map-top-bar">
+        <div class="temperature">
+          <span>26</span>
+          <span>℃</span>
+        </div>
+        <span class="top-bar-title">15min Wayfinding</span>
+        <div class="weather">
+          <span class="weather-text">Sunny</span>
+          <img class="weather-icon" src="assets/sun-icon.png" alt="Sunny">
+        </div>
+      </div>
+
+      <!-- Map Markers (positioned by JS) -->
+      <div id="mapMarkers"></div>
+
+      <!-- You Are Here -->
+      <div class="map-you-are-here" style="left:157px;top:373px;">
+        <div class="map-you-dot"></div>
+        <span class="map-you-label">You Are Here</span>
+      </div>
+
+      <!-- Quick Access Thumbnails (populated by JS) -->
+      <div class="quick-access-strip" id="quickAccessStrip"></div>
+
+    </div>
+
+    <!-- Back Button (top-right, always above map content) -->
+    <div class="map-back-wrapper">
+      <button class="back-btn" aria-label="Go back" id="mapBackBtn">
+        <img class="btn-icon" src="assets/icon-back.svg" alt="">
+        <span>Back</span>
+      </button>
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-btn" aria-label="Search" data-navigate="categoriesScreen" data-category="food">
+        <img class="nav-icon" src="assets/icon-search.svg" alt="">
+        <span>Search</span>
+      </button>
+      <button class="nav-btn" aria-label="Home" data-navigate="homeScreen">
+        <img class="nav-icon" src="assets/icon-home.svg" alt="">
+        <span>Home</span>
+      </button>
+      <button class="nav-btn nav-btn--active" aria-label="Map">
+        <img class="nav-icon" src="assets/icon-map.svg" alt="">
+        <span>Map</span>
+      </button>
+      <button class="nav-btn-support" aria-label="Support" data-navigate="supportScreen">
+        <img class="nav-icon" src="assets/icon-alert.svg" alt="">
+        <span>Support</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       SCREEN: Detail (populated dynamically by JS)
+       ════════════════════════════════════════════ -->
+  <div class="screen" id="detailScreen">
+    <div class="main main--scrollable">
+
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <div class="temperature">
+          <span>26</span>
+          <span>℃</span>
+        </div>
+        <span class="top-bar-title">15min Wayfinding</span>
+        <div class="weather">
+          <span class="weather-text">Sunny</span>
+          <img class="weather-icon" src="assets/sun-icon.png" alt="Sunny">
+        </div>
+      </div>
+
+      <!-- Detail Info (JS fills these) -->
+      <div class="detail-info" id="detailInfo">
+        <div class="detail-header">
+          <img class="detail-thumb" id="detailThumb" src="" alt="">
+          <div class="detail-meta">
+            <h1 class="detail-name" id="detailName"></h1>
+            <p class="detail-category" id="detailCategory"></p>
+            <div class="detail-rating">
+              <img class="detail-stars" src="assets/stars-5.svg" alt="5 star rating">
+              <span class="detail-rating-value" id="detailRatingValue"></span>
+            </div>
+          </div>
+          <div class="detail-walk-badge" id="detailWalkBadge">
+            <span class="detail-walk-number" id="detailWalkNumber"></span>
+            <span class="detail-walk-unit">min walk</span>
+          </div>
+        </div>
+
+        <p class="detail-description" id="detailDescription"></p>
+
+        <div class="detail-cta">
+          <button class="detail-directions-btn" aria-label="Show Directionals">
+            <div class="detail-directions-row">
+              <img class="detail-pin-icon" src="assets/icon-map-pin.svg" alt="">
+              <span>Show Directionals</span>
+            </div>
+            <p class="detail-address" id="detailAddress"></p>
+          </button>
+        </div>
+
+        <section class="detail-gallery-section">
+          <h2 class="section-title">Gallery</h2>
+          <div class="detail-gallery" id="detailGallery"></div>
+        </section>
+      </div>
+
+    </div>
+
+    <!-- Back Button (returns to previous screen) -->
+    <div class="back-btn-wrapper">
+      <button class="back-btn" aria-label="Go back" id="detailBackBtn">
+        <img class="btn-icon" src="assets/icon-back.svg" alt="">
+        <span>Back</span>
+      </button>
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-btn" aria-label="Search" data-navigate="categoriesScreen" data-category="food">
+        <img class="nav-icon" src="assets/icon-search.svg" alt="">
+        <span>Search</span>
+      </button>
+      <button class="nav-btn" aria-label="Home" data-navigate="homeScreen">
+        <img class="nav-icon" src="assets/icon-home.svg" alt="">
+        <span>Home</span>
+      </button>
+      <button class="nav-btn" aria-label="Map" data-navigate="mapScreen">
+        <img class="nav-icon" src="assets/icon-map.svg" alt="">
+        <span>Map</span>
+      </button>
+      <button class="nav-btn-support" aria-label="Support" data-navigate="supportScreen">
+        <img class="nav-icon" src="assets/icon-alert.svg" alt="">
+        <span>Support</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       SCREEN: Directionals (step-by-step walking guidance)
+       ════════════════════════════════════════════ -->
+  <div class="screen" id="directionalsScreen">
+
+    <!-- Map Hero (background image, same as Map Screen) -->
+    <div class="dir-map-hero">
+      <img class="dir-map-image" src="assets/map-sheridan.png" alt="Route map">
+    </div>
+
+    <!-- Floating Destination Card -->
+    <div class="dir-dest-card" id="dirDestCard">
+      <img class="dir-dest-thumb" id="dirDestThumb" src="" alt="">
+      <div class="dir-dest-info">
+        <span class="dir-dest-name" id="dirDestName"></span>
+        <span class="dir-dest-category" id="dirDestCategory"></span>
+        <span class="dir-dest-walk" id="dirDestWalk"></span>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="dir-progress-bar" id="dirProgressBar">
+      <div class="dir-progress-fill" id="dirProgressFill"></div>
+    </div>
+
+    <!-- Step Counter + Distance/Time Summary -->
+    <div class="dir-summary" id="dirSummary">
+      <span class="dir-summary-step" id="dirSummaryStep">Step 1 of 6</span>
+      <span class="dir-summary-distance" id="dirSummaryDistance">~180 m · 8 min walk</span>
+    </div>
+
+    <!-- Scrollable Step List -->
+    <div class="dir-steps-scroll" id="dirStepsScroll">
+      <div class="dir-steps-list" id="dirStepsList"></div>
+    </div>
+
+    <!-- Next Step Button (floating above bottom nav) -->
+    <div class="dir-next-wrapper" id="dirNextWrapper">
+      <button class="dir-next-btn" id="dirNextBtn" aria-label="Next step">
+        <span>Next Step</span>
+        <img class="dir-next-icon" src="assets/icon-direction-arrow.svg" alt="">
+      </button>
+    </div>
+
+    <!-- Done Button (shown after arrival, replaces Next Step) -->
+    <div class="dir-done-wrapper" id="dirDoneWrapper" style="display:none">
+      <button class="dir-done-btn" id="dirDoneBtn" aria-label="Wayfinding complete">
+        <svg class="dir-done-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 6L9 17L4 12" stroke="#F5F5F5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Done</span>
+      </button>
+    </div>
+
+    <!-- Back Button (fixed at top-right, always visible) -->
+    <div class="dir-back-wrapper">
+      <button class="back-btn" aria-label="Go back" id="dirBackBtn">
+        <img class="btn-icon" src="assets/icon-back.svg" alt="">
+        <span>Back</span>
+      </button>
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-btn" aria-label="Search" data-navigate="categoriesScreen" data-category="food">
+        <img class="nav-icon" src="assets/icon-search.svg" alt="">
+        <span>Search</span>
+      </button>
+      <button class="nav-btn" aria-label="Home" data-navigate="homeScreen">
+        <img class="nav-icon" src="assets/icon-home.svg" alt="">
+        <span>Home</span>
+      </button>
+      <button class="nav-btn" aria-label="Map" data-navigate="mapScreen">
+        <img class="nav-icon" src="assets/icon-map.svg" alt="">
+        <span>Map</span>
+      </button>
+      <button class="nav-btn-support" aria-label="Support" data-navigate="supportScreen">
+        <img class="nav-icon" src="assets/icon-alert.svg" alt="">
+        <span>Support</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       SCREEN: Support
+       ════════════════════════════════════════════ -->
+  <div class="screen" id="supportScreen">
+    <div class="main main--scrollable">
+
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <div class="temperature">
+          <span>26</span>
+          <span>℃</span>
+        </div>
+        <span class="top-bar-title">15min Wayfinding</span>
+        <div class="weather">
+          <span class="weather-text">Sunny</span>
+          <img class="weather-icon" src="assets/sun-icon.png" alt="Sunny">
+        </div>
+      </div>
+
+      <!-- Screen Header -->
+      <div class="support-header">
+        <div class="support-icon-circle">
+          <img src="assets/icon-alert.svg" alt="" class="support-header-icon">
+        </div>
+        <h1 class="support-title">Support</h1>
+        <p class="support-subtitle">Need help? Choose an option below.</p>
+      </div>
+
+      <!-- Emergency Section -->
+      <section class="support-section">
+        <h2 class="support-section-title">Emergency</h2>
+        <div class="support-cards">
+          <button class="support-card support-card--emergency" aria-label="Call 911">
+            <svg class="support-card-icon" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="support-card-text">
+              <span class="support-card-label">Call 911</span>
+              <span class="support-card-desc">Fire, police, or medical emergency</span>
+            </div>
+          </button>
+          <button class="support-card support-card--security" aria-label="Campus Security">
+            <svg class="support-card-icon" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="support-card-text">
+              <span class="support-card-label">Campus Security</span>
+              <span class="support-card-desc">24/7 security assistance</span>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <!-- Help Section -->
+      <section class="support-section">
+        <h2 class="support-section-title">Help & Feedback</h2>
+        <div class="support-cards">
+          <button class="support-card support-card--report" aria-label="Report an Issue">
+            <svg class="support-card-icon" viewBox="0 0 24 24" fill="none"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="support-card-text">
+              <span class="support-card-label">Report an Issue</span>
+              <span class="support-card-desc">Broken screen, wrong info, or system error</span>
+            </div>
+          </button>
+          <button class="support-card support-card--firstaid" aria-label="First Aid Info">
+            <svg class="support-card-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zM12 8v8M8 12h8" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="support-card-text">
+              <span class="support-card-label">First Aid Info</span>
+              <span class="support-card-desc">Nearest first aid kit and clinic locations</span>
+            </div>
+          </button>
+          <button class="support-card support-card--info" aria-label="Accessibility Help">
+            <svg class="support-card-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#F5F5F5" stroke-width="2"/><path d="M12 16v-4M12 8h.01" stroke="#F5F5F5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="support-card-text">
+              <span class="support-card-label">Accessibility Help</span>
+              <span class="support-card-desc">Wheelchair access, elevators, and ramps</span>
+            </div>
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Back Button -->
+    <div class="back-btn-wrapper">
+      <button class="back-btn" aria-label="Go back" id="supportBackBtn">
+        <img class="btn-icon" src="assets/icon-back.svg" alt="">
+        <span>Back</span>
+      </button>
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-btn" aria-label="Search" data-navigate="categoriesScreen" data-category="food">
+        <img class="nav-icon" src="assets/icon-search.svg" alt="">
+        <span>Search</span>
+      </button>
+      <button class="nav-btn" aria-label="Home" data-navigate="homeScreen">
+        <img class="nav-icon" src="assets/icon-home.svg" alt="">
+        <span>Home</span>
+      </button>
+      <button class="nav-btn" aria-label="Map" data-navigate="mapScreen">
+        <img class="nav-icon" src="assets/icon-map.svg" alt="">
+        <span>Map</span>
+      </button>
+      <button class="nav-btn-support nav-btn--active" aria-label="Support">
+        <img class="nav-icon" src="assets/icon-alert.svg" alt="">
+        <span>Support</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       SCREEN: Transit
+       ════════════════════════════════════════════ -->
+  <div class="screen" id="transitScreen">
+    <div class="main main--scrollable">
+
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <div class="temperature">
+          <span>26</span>
+          <span>℃</span>
+        </div>
+        <span class="top-bar-title">15min Wayfinding</span>
+        <div class="weather">
+          <span class="weather-text">Sunny</span>
+          <img class="weather-icon" src="assets/sun-icon.png" alt="Sunny">
+        </div>
+      </div>
+
+      <!-- Screen Header -->
+      <div class="transit-screen-header">
+        <h1 class="transit-screen-title">Transit Timetable</h1>
+      </div>
+
+      <!-- Provider Legend -->
+      <div class="transit-legend">
+        <div class="transit-legend-item">
+          <span class="transit-legend-dot transit-legend-dot--oakville-go"></span>
+          <span class="transit-legend-text">Oakville GO</span>
+        </div>
+        <div class="transit-legend-item">
+          <span class="transit-legend-dot transit-legend-dot--go-bus"></span>
+          <span class="transit-legend-text">GO Bus</span>
+        </div>
+        <div class="transit-legend-item">
+          <span class="transit-legend-dot transit-legend-dot--miway"></span>
+          <span class="transit-legend-text">MiWay</span>
+        </div>
+      </div>
+
+      <!-- Full transit list (populated by JS) -->
+      <div class="transit-list" id="transitFullList"></div>
+
+    </div>
+
+    <!-- Back Button -->
+    <div class="back-btn-wrapper">
+      <button class="back-btn" aria-label="Go back" data-navigate="homeScreen">
+        <img class="btn-icon" src="assets/icon-back.svg" alt="">
+        <span>Back</span>
+      </button>
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-btn" aria-label="Search" data-navigate="categoriesScreen" data-category="food">
+        <img class="nav-icon" src="assets/icon-search.svg" alt="">
+        <span>Search</span>
+      </button>
+      <button class="nav-btn" aria-label="Home" data-navigate="homeScreen">
+        <img class="nav-icon" src="assets/icon-home.svg" alt="">
+        <span>Home</span>
+      </button>
+      <button class="nav-btn" aria-label="Map" data-navigate="mapScreen">
+        <img class="nav-icon" src="assets/icon-map.svg" alt="">
+        <span>Map</span>
+      </button>
+      <button class="nav-btn-support" aria-label="Support" data-navigate="supportScreen">
+        <img class="nav-icon" src="assets/icon-alert.svg" alt="">
+        <span>Support</span>
+      </button>
+    </nav>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
