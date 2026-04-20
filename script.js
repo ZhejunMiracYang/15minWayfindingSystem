@@ -1,74 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ╔═══════════════════════════════════════════════════════════╗
-  // ║  API INTEGRATION LAYER                                   ║
-  // ║  Replace the mock implementations below with real API    ║
-  // ║  calls. Each function returns a Promise so the rest of   ║
-  // ║  the app works identically whether data is local or      ║
-  // ║  fetched from a server.                                  ║
-  // ╚═══════════════════════════════════════════════════════════╝
-
-  // ── Weather API ─────────────────────────────────────────────
-  // Expected response: { temp: number, unit: '℃'|'℉', condition: string, icon: string }
-  // Example real integration:
-  //   const API_WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?q=Oakville,CA&appid=YOUR_KEY&units=metric';
-  //   async function fetchWeather() {
-  //     const res = await fetch(API_WEATHER_URL);
-  //     const json = await res.json();
-  //     return {
-  //       temp: Math.round(json.main.temp),
-  //       unit: '℃',
-  //       condition: json.weather[0].main,
-  //       icon: `https://openweathermap.org/img/wn/${json.weather[0].icon}@2x.png`
-  //     };
-  //   }
-  function fetchWeather() {
-    return Promise.resolve({
-      temp: 26,
-      unit: '℃',
-      condition: 'Sunny',
-      icon: 'assets/sun-icon.png'
-    });
-  }
-
-  // ── Map Tiles API ───────────────────────────────────────────
-  // Expected response: { tileUrl: string, center: {lat, lng}, zoom: number }
-  // Example real integration (Mapbox / Google Maps / Leaflet):
-  //   const API_MAP_KEY = 'YOUR_MAPBOX_TOKEN';
-  //   async function fetchMapConfig() {
-  //     return {
-  //       tileUrl: `https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/{z}/{x}/{y}?access_token=${API_MAP_KEY}`,
-  //       center: { lat: 43.4688, lng: -79.7002 },
-  //       zoom: 16
-  //     };
-  //   }
-  function fetchMapConfig() {
-    return Promise.resolve({
-      tileUrl: null,
-      staticImage: 'assets/map-sheridan.png',
-      center: { lat: 43.4688, lng: -79.7002 },
-      zoom: 16
-    });
-  }
-
-  // ── Transit Schedule API ────────────────────────────────────
-  // Expected response: Array of { route, provider, providerName, destination, from, arrivalMin }
-  // Example real integration (GTFS / NextBus / TransitLand):
-  //   const API_TRANSIT_URL = 'https://api.example.com/transit/departures?stop=sheridan-college';
-  //   async function fetchTransitSchedule() {
-  //     const res = await fetch(API_TRANSIT_URL);
-  //     const json = await res.json();
-  //     return json.departures.map(d => ({
-  //       route: d.route_short_name,
-  //       provider: d.agency_id,
-  //       providerName: d.agency_name,
-  //       destination: d.trip_headsign,
-  //       from: d.stop_name,
-  //       arrivalMin: Math.ceil((new Date(d.arrival_time) - Date.now()) / 60000)
-  //     }));
-  //   }
-  function fetchTransitSchedule() {
-    return Promise.resolve([
+  // ══════════════════════════════════════════
+  //  MOCK TRANSIT DATA
+  // ══════════════════════════════════════════
+  const TRANSIT_DATA = [
     {
       route: '5A',   provider: 'oakville-go', providerName: 'Oakville Go',
       destination: 'To Uptown Core',       from: 'Sheridan College',
@@ -108,32 +43,17 @@ document.addEventListener('DOMContentLoaded', () => {
       route: '61',   provider: 'miway',      providerName: 'MiWay',
       destination: 'To Mississauga City Centre', from: 'Winston Park Dr',
       arrivalMin: 35
-    ]);
-  }
-
-  // ── API Refresh Interval (ms) ──────────────────────────────
-  // How often to re-fetch live data. Increase for rate-limited APIs.
-  var API_REFRESH_INTERVAL = 60000;
-
-  // ╔═══════════════════════════════════════════════════════════╗
-  // ║  END API INTEGRATION LAYER                               ║
-  // ╚═══════════════════════════════════════════════════════════╝
-
-  // ══════════════════════════════════════════
-  //  RUNTIME DATA (populated by API layer)
-  // ══════════════════════════════════════════
-  var TRANSIT_DATA = [];
+    }
+  ];
 
   const IMMINENT_THRESHOLD = 5;
   const ICON_ARROW = 'assets/icon-arrow-right.svg';
+  const startTime = Date.now();
 
-  function initTransitData(entries) {
-    var now = Date.now();
-    entries.forEach(function(entry) {
-      entry._arrivalTime = now + entry.arrivalMin * 60 * 1000;
-    });
-    TRANSIT_DATA = entries;
-  }
+  // Compute absolute arrival timestamp for each entry
+  TRANSIT_DATA.forEach(entry => {
+    entry._arrivalTime = startTime + entry.arrivalMin * 60 * 1000;
+  });
 
   // ══════════════════════════════════════════
   //  MAP POI DATA (matches Figma markers 1:1)
@@ -547,22 +467,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── Bootstrap: fetch transit data then populate UI ──
-  fetchTransitSchedule().then(function(entries) {
-    initTransitData(entries);
-    populateHomePreview();
-    populateTransitScreen();
-  });
-
-  setInterval(function() {
-    refreshAllCards();
-    // Re-fetch from API on each cycle (for live data)
-    // fetchTransitSchedule().then(function(entries) {
-    //   initTransitData(entries);
-    //   populateHomePreview();
-    //   populateTransitScreen();
-    // });
-  }, 15000);
+  populateHomePreview();
+  populateTransitScreen();
+  setInterval(refreshAllCards, 15000);
 
   // ══════════════════════════════════════════
   //  MAP MARKERS + QUICK ACCESS THUMBNAILS
@@ -952,52 +859,6 @@ document.addEventListener('DOMContentLoaded', () => {
       navigateBack();
     });
   }
-
-  // ══════════════════════════════════════════
-  //  WEATHER API → DOM BINDING
-  // ══════════════════════════════════════════
-  function applyWeather(data) {
-    document.querySelectorAll('.temperature').forEach(function(el) {
-      var spans = el.querySelectorAll('span');
-      if (spans[0]) spans[0].textContent = data.temp;
-      if (spans[1]) spans[1].textContent = data.unit;
-    });
-    document.querySelectorAll('.weather-text').forEach(function(el) {
-      el.textContent = data.condition;
-    });
-    document.querySelectorAll('.weather-icon').forEach(function(el) {
-      el.src = data.icon;
-      el.alt = data.condition;
-    });
-  }
-
-  fetchWeather().then(applyWeather);
-
-  // Re-fetch weather periodically
-  setInterval(function() {
-    fetchWeather().then(applyWeather);
-  }, API_REFRESH_INTERVAL);
-
-  // ══════════════════════════════════════════
-  //  MAP API → DOM BINDING
-  // ══════════════════════════════════════════
-  function applyMapConfig(config) {
-    if (config.tileUrl) {
-      // When using a real tile API (Mapbox/Leaflet/Google Maps),
-      // initialize the map library here:
-      //   var map = L.map('mapContainer').setView(
-      //     [config.center.lat, config.center.lng], config.zoom
-      //   );
-      //   L.tileLayer(config.tileUrl).addTo(map);
-      return;
-    }
-    // Fallback: static image (current behavior)
-    document.querySelectorAll('.map-full-image, .map-image, .dir-map-image').forEach(function(el) {
-      el.src = config.staticImage;
-    });
-  }
-
-  fetchMapConfig().then(applyMapConfig);
 
   // ══════════════════════════════════════════
   //  MARQUEE ANIMATION FOR OVERFLOWING TEXT
